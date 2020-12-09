@@ -8,8 +8,8 @@ var app = express();
 var port = 3000;
 // Where we will keep lists
 var lists = [];
-app.use(cors());
-// Configuring body parser middleware
+app.use(express.static("public"))
+    // Configuring body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //requires
@@ -28,7 +28,11 @@ MongoClient.connect(url, function(err, db) {
         db.close();
     });
 });
-//list to api
+//helo
+app.get("/", function(req, res) {
+        res.send("<h1>Hello World!</h1>")
+    })
+    //list to api
 app.get('/lists', function(req, res) {
     res.json(lists);
 });
