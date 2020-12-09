@@ -25,6 +25,7 @@ MongoClient.connect(url, function (err, db) {
         if (err)
             throw err;
         lists = result;
+
         console.log(result);
         db.close();
     });
@@ -32,9 +33,9 @@ MongoClient.connect(url, function (err, db) {
 
 //list to api
 app.get('/lists', function (req, res) {
-    res.json(lists);
+    res.json(result);
 });
 
 // start the server listening for requests
 app.listen(process.env.PORT || 3000,
-    () => console.log("Server is running..."));
+    () => console.log("Server is running on Port:" + process.env.PORT || 3000));
