@@ -6,6 +6,9 @@ var url = process.env.DB_CONNECTION_STRING;
 const express = require("express");
 const app = express();
 var bodyParser = require('body-parser');
+// Configuring body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 // use the express-static middleware
 app.use(express.static("public"));
 // define the first route
