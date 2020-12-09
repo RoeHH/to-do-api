@@ -5,7 +5,7 @@ var url = process.env.DB_CONNECTION_STRING;
 // create an express app
 const express = require("express")
 const app = express()
-
+var lists = [];
 // use the express-static middleware
 app.use(express.static("public"))
 
@@ -31,7 +31,7 @@ MongoClient.connect(url, function(err, db) {
 
 //list to api
 app.get('/lists', function(req, res) {
-    res.json(result);
+    res.json(lists);
 });
 
 // start the server listening for requests
