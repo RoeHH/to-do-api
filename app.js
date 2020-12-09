@@ -12,7 +12,7 @@ app.get("/", function(req, res) {
 
 //MongoDB stuf
 var MongoClient = require('mongodb').MongoClient;
-var url = process.env.DB_CONNECTION_STRING;
+var url = "mongodb+srv://iccee0:Mairs12R@cluster0.3htzt.mongodb.net/PROJECT 0?retryWrites=true&w=majority";
 //getLists
 MongoClient.connect(url, function(err, db) {
     if (err)
