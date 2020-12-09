@@ -1,5 +1,5 @@
-require("dotenv").config()
-    // create an express app
+require("dotenv").config();
+// create an express app
 const express = require("express")
 const app = express()
 var lists = [];
