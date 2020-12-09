@@ -15,12 +15,12 @@ app.use(bodyParser.json());
 //requires
 //const { getLists } = require('./getLists.js');
 //getLists
-MongoClient.connect(url, function (err, db) {
+MongoClient.connect(url, function(err, db) {
     if (err)
         throw err;
     var dbo = db.db("mydb");
     var mysort = { name: 1 };
-    dbo.collection("customers").find().sort(mysort).toArray(function (err, result) {
+    dbo.collection("customers").find().sort(mysort).toArray(function(err, result) {
         if (err)
             throw err;
         lists = result;
@@ -29,8 +29,8 @@ MongoClient.connect(url, function (err, db) {
     });
 });
 //list to api
-app.get('/lists', function (req, res) {
+app.get('/lists', function(req, res) {
     res.json(lists);
 });
 //lets the api run
-app.listen(port, function () { return console.log("Hello world app listening on port " + port + "!"); });
+app.listen(3000, function() { return console.log("Hello world app listening on port " + port + "!"); });
