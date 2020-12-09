@@ -1,13 +1,7 @@
-require("dotenv").config();
-//MongoDB stuf
-var MongoClient = require('mongodb').MongoClient;
-var url = process.env.DB_CONNECTION_STRING;
 // create an express app
 const express = require("express")
 const app = express()
-var bodyParser = require('body-parser');
-
-
+var lists = [];
 // use the express-static middleware
 app.use(express.static("public"))
 
@@ -16,25 +10,31 @@ app.get("/", function (req, res) {
     res.send("<h1>Hello World!</h1>")
 })
 
+//MongoDB stuf
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb+srv://iccee0:Mairs12R@cluster0.3htzt.mongodb.net/PROJECT 0?retryWrites=true&w=majority";
+
 //getLists
 MongoClient.connect(url, function (err, db) {
-    if (err) throw err;
+    if (err)
+        throw err;
     var dbo = db.db("mydb");
     var mysort = { name: 1 };
     dbo.collection("customers").find().sort(mysort).toArray(function (err, result) {
         if (err)
             throw err;
         lists = result;
-
         console.log(result);
         db.close();
     });
 });
 
+
 //list to api
 app.get('/lists', function (req, res) {
-    res.json(result);
+    res.json(lists);
 });
+
 
 // start the server listening for requests
 app.listen(process.env.PORT || 3000,
