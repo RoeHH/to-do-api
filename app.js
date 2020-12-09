@@ -1,6 +1,3 @@
-//MongoDB stuf
-var MongoClient = require('mongodb').MongoClient;
-var url = process.env.DB_CONNECTION_STRING;
 // create an express app
 const express = require("express")
 const app = express()
@@ -13,7 +10,9 @@ app.get("/", function(req, res) {
     res.send("<h1>Hello World!</h1>")
 })
 
-
+//MongoDB stuf
+var MongoClient = require('mongodb').MongoClient;
+var url = process.env.DB_CONNECTION_STRING;
 //getLists
 MongoClient.connect(url, function(err, db) {
     if (err)
