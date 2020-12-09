@@ -1,16 +1,16 @@
 require("dotenv").config()
-const { getTodos } = require('./database')
+import { getTodos } from './database';
 
 // create an express app
-const { join } = require('path')
-const express = require("express");
+import { join } from 'path';
+import express from "express";
 const app = express();
 
 // use the express-static middleware
 app.use(express.static(join(__dirname, '/public')));
 
 //list to api
-app.get('/lists', async(req, res) => {
+app.get('/lists', async (req, res) => {
     const customers = await getTodos();
     res.status(200).json(customers);
 });
