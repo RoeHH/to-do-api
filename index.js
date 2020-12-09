@@ -33,4 +33,4 @@ app.get('/lists', function(req, res) {
     res.json(lists);
 });
 //lets the api run
-app.listen(3000, function() { return console.log("Hello world app listening on port " + port + "!"); });
+app.listen(port, function() { return console.log("Hello world app listening on port " + port + "!"); });
