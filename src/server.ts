@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
 import { DbController } from './database';
@@ -16,6 +16,12 @@ app.get('/lists', async (req, res) => {
     const controller = await DbController.createDbController();
     const customers = await controller.getTodos();
     res.status(200).json(customers);
+});
+
+app.get('/name', async (req, res) => {
+    const controller = await DbController.createDbController();
+    const customer = await controller.getCustomerByName('Company Inc');
+    res.status(200).json(customer);
 });
 
 // start the server listening for requestsy
