@@ -39,5 +39,10 @@ app.get('/lists', function (req, res) {
     res.json(lists);
 });
 
+//hello
+app.get("/", function (req, res) {
+    res.send("<h1>Hello World!</h1>")
+})
+
 //lets the api run
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
