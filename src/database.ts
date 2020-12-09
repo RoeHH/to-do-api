@@ -1,13 +1,22 @@
-const { MongoClient } = require('mongodb')
+import { Db, MongoClient } from 'mongodb';
 
-const client = new MongoClient(process.env.DB_CONNECTION_STRING);
+export class DbController {
 
+    private dbo?: Db;
+    private client?: MongoClient
 
-(async () => {
-    await client.connect();
-})()
+    private constructor() {}
+    
+    public static async createDbController(): Promise<DbController> {
+        const controller = new DbController();
 
-export const getTodos = async () => {
-    const dbo = client.db();
-    return dbo.collection('customers').find().toArray();
+        controller.client = new MongoClient(process.env.DB_CONNECTION_STRING || '');
+        await controller.client.connect()
+        controller.dbo = controller.client.db();
+        return controller;
+    }
+
+    public async getTodos(): Promise<any[] | undefined> {
+        return this.dbo?.collection('customers').find().toArray();
+    }
 }

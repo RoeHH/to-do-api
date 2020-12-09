@@ -1,5 +1,7 @@
-require("dotenv").config()
-import { getTodos } from './database';
+import dotenv from "dotenv";
+dotenv.config();
+
+import { DbController } from './database';
 
 // create an express app
 import { join } from 'path';
@@ -11,7 +13,8 @@ app.use(express.static(join(__dirname, '/public')));
 
 //list to api
 app.get('/lists', async (req, res) => {
-    const customers = await getTodos();
+    const controller = await DbController.createDbController();
+    const customers = await controller.getTodos();
     res.status(200).json(customers);
 });
 
