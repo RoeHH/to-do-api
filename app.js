@@ -1,3 +1,4 @@
+var dotenv = require('dotenv').load({ silent: true });
 // create an express app
 const express = require("express")
 const app = express()
@@ -12,7 +13,7 @@ app.get("/", function(req, res) {
 
 //MongoDB stuf
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb+srv://iccee0:Mairs12R@cluster0.3htzt.mongodb.net/PROJECT 0?retryWrites=true&w=majority";
+var url = process.env.DB_CONNECTION_STRING;
 //getLists
 MongoClient.connect(url, function(err, db) {
     if (err)
