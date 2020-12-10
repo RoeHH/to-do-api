@@ -1,0 +1,18 @@
+{
+  "tabWidth": 2,
+  "endOfLine": "lf",
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 110,
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "cursorOffset": -1,
+  "embeddedLanguageFormatting": "auto",
+  "insertPragma": false,
+  "proseWrap": "preserve",
+  "useTabs": false,
+  "trailingComma": "es5",
+  "requirePragma": false,
+  "quoteProps": "as-needed"
+}
+

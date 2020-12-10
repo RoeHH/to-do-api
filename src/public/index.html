@@ -1,47 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <hr>
-        <h1>Create New list</h1>
-        <hr>
+      <hr />
+      <h1>Create New list</h1>
+      <hr />
 
-        <form action="/new-list" method="POST">
+      <form action="/new-list" method="POST">
+        <div class="form-group">
+          <label for="listName">content</label>
+          <input class="form-control" name="listName" />
+        </div>
 
-            <div class="form-group">
-                <label for="listName">content</label>
-                <input class="form-control" name="listName">
-            </div>
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <hr />
+      <h1>Create New task</h1>
+      <hr />
 
-            <!--Other fields-->
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <hr>
-        <h1>Create New task</h1>
-        <hr>
+      <form action="/new-task" method="POST">
+        <div class="form-group">
+          <label for="listid">listiud</label>
+          <input class="form-control" name="listid" />
+        </div>
 
-        <form action="/new-task" method="POST">
-            <div class="form-group">
-                <label for="listid">listiud</label>
-                <input class="form-control" name="listid">
-            </div>
+        <div class="form-group">
+          <label for="taskContent">content</label>
+          <input class="form-control" name="taskContent" />
+        </div>
 
-            <div class="form-group">
-                <label for="taskContent">content</label>
-                <input class="form-control" name="taskContent">
-            </div>
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
 
-            <!--Other fields-->
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+      <hr />
+      <h1>update task</h1>
+      <hr />
+
+      <form action="/update-task" method="POST">
+        <div class="form-group">
+          <label for="taskid">finish</label>
+          <input class="form-control" name="taskid" />
+          <input type="hidden" name="done" value="true" />
+        </div>
+
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <form action="/update-task" method="POST">
+        <div class="form-group">
+          <label for="taskid">undo</label>
+          <input class="form-control" name="taskid" />
+          <input type="hidden" name="done" value="" />
+        </div>
+
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <hr />
+      <h1>update list</h1>
+      <hr />
+
+      <form action="/update-list" method="POST">
+        <div class="form-group">
+          <label for="listid">archive</label>
+          <input class="form-control" name="listid" />
+          <input type="hidden" name="archived" value="true" />
+        </div>
+
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+            <form action="/update-list" method="POST">
+        <div class="form-group">
+          <label for="listid">undo</label>
+          <input class="form-control" name="listid" />
+          <input type="hidden" name="archived" value="" />
+        </div>
+
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
-</body>
-
+  </body>
 </html>
