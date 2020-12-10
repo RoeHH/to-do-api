@@ -20,7 +20,7 @@ export class DbController {
     }
 
     public async getTodos(): Promise<any[] | undefined> {
-        return this.dbo?.collection('').find().toArray();
+        return this.customers?.find().toArray();
     }
 
     public async getCustomerByName(name: string) {
