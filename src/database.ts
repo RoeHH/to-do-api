@@ -31,7 +31,7 @@ export class DbController {
 
 
   public async insertTodo(listid: number, taskContent: string /*, userId: ObjectId*/): Promise<void> {
-    this.task?.insertOne({ taskContent, listid: new ObjectId(listid) });
+    this.task?.insertOne({ taskContent, listid: new ObjectId(listid), done: false});
   }
 
   public async newList(listName: string): Promise<void> {
