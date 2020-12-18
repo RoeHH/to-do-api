@@ -1,4 +1,6 @@
 import { Collection, Db, MongoClient, ObjectId } from 'mongodb';
+import { updateVariableDeclarationList } from 'typescript';
+import { ListMode } from './enums/ListMode';
 
 export class DbController {
   private dbo?: Db;
@@ -7,7 +9,7 @@ export class DbController {
   private client?: MongoClient;
   private task?: Collection;
 
-  private constructor() { }
+  private constructor() {}
 
   public static createDbController(): DbController {
     const controller = new DbController();
@@ -22,16 +24,33 @@ export class DbController {
     return controller;
   }
 
-  public async getLists(): Promise<any[] | undefined> {
-    const lists = await this.list?.find().toArray();
+  public async getLists(listMode: ListMode): Promise<any[] | undefined> {
+    let lists = await this.list?.find().toArray();
     if (!lists) return undefined; // If collection is empty
-    for (const list of lists) list.tasks = await this.task?.find({ listid: list._id }).toArray();
+    for (const list of lists)
+      list.tasks = await this.task?.find({ listid: list._id }).toArray();
+
+    if (listMode === ListMode.archived)
+      lists = lists.filter((list) => {
+        for (const task of list.tasks) if (!task.done) return false;
+        return true;
+      });
+    else if (listMode === ListMode.active)
+      lists = lists.filter((list) => {
+        for (const task of list.tasks) if (!task.done) return true;
+      });
     return lists;
   }
 
-
-  public async insertTodo(listid: number, taskContent: string /*, userId: ObjectId*/): Promise<void> {
-    this.task?.insertOne({ taskContent, listid: new ObjectId(listid), done: false});
+  public async insertTodo(
+    listid: number,
+    taskContent: string /*, userId: ObjectId*/
+  ): Promise<void> {
+    this.task?.insertOne({
+      taskContent,
+      listid: new ObjectId(listid),
+      done: false,
+    });
   }
 
   public async newList(listName: string): Promise<void> {

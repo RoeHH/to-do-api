@@ -3,7 +3,7 @@
   "endOfLine": "lf",
   "semi": true,
   "singleQuote": true,
-  "printWidth": 110,
+  "printWidth": 80,
   "arrowParens": "always",
   "bracketSpacing": true,
   "cursorOffset": -1,
@@ -15,4 +15,3 @@
   "requirePragma": false,
   "quoteProps": "as-needed"
 }
-
