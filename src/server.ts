@@ -58,6 +58,13 @@ app.post('/update-list', async (req, res) => {
   res.status(200).json({success: true})
 });
 
+app.post('/new-list-task', async (req, res) => {
+  const body = req.body;
+  console.log(body.taskContent);
+  await controller.newListTask(body.listname, body.taskContent);
+  res.status(200).json({ success: true });
+});
+
 // start the server listening for requestsy
 app.listen(process.env.PORT || 3000, () =>
   console.log('Server is running on Port:' + process.env.PORT || 3000)

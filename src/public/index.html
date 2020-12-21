@@ -39,6 +39,24 @@
         <!--Other fields-->
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+      <hr />
+      <h1>Create New list/task</h1>
+      <hr />
+
+      <form action="/new-list-task" method="POST">
+        <div class="form-group">
+          <label for="listname">listname</label>
+          <input class="form-control" name="listname" />
+        </div>
+
+        <div class="form-group">
+          <label for="taskContent">content</label>
+          <input class="form-control" name="taskContent" />
+        </div>
+
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
 
       <hr />
       <h1>update task</h1>

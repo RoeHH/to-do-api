@@ -9,7 +9,7 @@ export class DbController {
   private client?: MongoClient;
   private task?: Collection;
 
-  private constructor() {}
+  private constructor() { }
 
   public static createDbController(): DbController {
     const controller = new DbController();
@@ -54,7 +54,9 @@ export class DbController {
   }
 
   public async newList(listName: string): Promise<void> {
-    this.list?.insertOne({ listName, archived: false });
+    this.list?.insertOne({ listName, archived: false }, function (err, docsInserted) {
+      console.log(docsInserted);
+    });
   }
 
   public async updateTask(taskid: number, done: boolean): Promise<void> {
@@ -72,5 +74,19 @@ export class DbController {
         $set: { archived },
       }
     );
+  }
+
+  public async newListTask(listName: string, taskcontent: string): Promise<void> {
+    var listid;
+    var wait = (ms: number) => new Promise((r, j) => setTimeout(r, ms));
+    await this.list?.insertOne({ listName, archived: false }, function (err, docsInserted) {
+      if (err) return;
+      console.log(docsInserted.insertedId);
+      listid = docsInserted.insertedId;
+    });
+    await wait(2000);
+    if (listid !== undefined) {
+      this.insertTodo(listid, taskcontent);
+    }
   }
 }
