@@ -65,6 +65,13 @@ app.post('/new-list-task', async (req, res) => {
   res.status(200).json({ success: true });
 });
 
+app.post('/new-task', async (req, res) => {
+  const body = req.body;
+  console.log(body.listid);
+  await controller.insertTodo(body.listid, body.taskContent);
+  res.status(200).json({ success: true });
+});
+
 app.post('/delete-list', async (req, res) => {
   const body = req.body;
   console.log(body.listid);
