@@ -9,7 +9,7 @@ export class DbController {
   private client?: MongoClient;
   private task?: Collection;
 
-  private constructor() { }
+  private constructor() {}
 
   public static createDbController(): DbController {
     const controller = new DbController();
@@ -27,8 +27,9 @@ export class DbController {
   public async getLists(listMode: ListMode): Promise<any[] | undefined> {
     let lists = await this.list?.find().toArray();
     if (!lists) return undefined; // If collection is empty
-    for (const list of lists)
+    for (const list of lists) {
       list.tasks = await this.task?.find({ listid: list._id }).toArray();
+    }
 
     if (listMode === ListMode.archived)
       lists = lists.filter((list) => {
@@ -54,9 +55,12 @@ export class DbController {
   }
 
   public async newList(listName: string): Promise<void> {
-    this.list?.insertOne({ listName, archived: false }, function (err, docsInserted) {
-      console.log(docsInserted);
-    });
+    this.list?.insertOne(
+      { listName, archived: false },
+      function (err, docsInserted) {
+        console.log(docsInserted);
+      }
+    );
   }
 
   public async updateTask(taskid: number, done: boolean): Promise<void> {
@@ -76,17 +80,48 @@ export class DbController {
     );
   }
 
-  public async newListTask(listName: string, taskcontent: string): Promise<void> {
+  public async newListTask(
+    listName: string,
+    taskcontent: string
+  ): Promise<void> {
     var listid;
     var wait = (ms: number) => new Promise((r, j) => setTimeout(r, ms));
-    await this.list?.insertOne({ listName, archived: false }, function (err, docsInserted) {
-      if (err) return;
-      console.log(docsInserted.insertedId);
-      listid = docsInserted.insertedId;
-    });
+    await this.list?.insertOne(
+      { listName, archived: false },
+      function (err, docsInserted) {
+        if (err) return;
+        console.log(docsInserted.insertedId);
+        listid = docsInserted.insertedId;
+      }
+    );
     await wait(2000);
     if (listid !== undefined) {
       this.insertTodo(listid, taskcontent);
     }
+  }
+
+  public async deleteList(listid: number): Promise<void> {
+    //delete the tasks in a list
+    let tasks = await this.task?.find({ listid: new ObjectId(listid) }).toArray();
+    if (tasks !== undefined) {
+      for (const task of tasks) {
+        this.deleteTask(task._id)
+      }
+    }
+    //delete the list
+    this.list?.deleteOne({
+      _id: new ObjectId(listid),
+    }, function (err, obj) {
+      if (err) throw err;
+      console.log("1 document deleted");
+    });
+  }
+  public async deleteTask(taskid: number): Promise<void> {
+    this.task?.deleteOne({
+      _id: new ObjectId(taskid),
+    }, function (err, obj) {
+        if (err) throw err;
+      console.log("1 document deleted");
+    });
   }
 }

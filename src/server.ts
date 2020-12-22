@@ -65,6 +65,20 @@ app.post('/new-list-task', async (req, res) => {
   res.status(200).json({ success: true });
 });
 
+app.post('/delete-list', async (req, res) => {
+  const body = req.body;
+  console.log(body.listid);
+  await controller.deleteList(body.listid);
+  res.status(200).json({ success: true });
+});
+
+app.post('/delete-task', async (req, res) => {
+  const body = req.body;
+  console.log(body.taskid);
+  await controller.deleteTask(body.taskid);
+  res.status(200).json({ success: true });
+});
+
 // start the server listening for requestsy
 app.listen(process.env.PORT || 3000, () =>
   console.log('Server is running on Port:' + process.env.PORT || 3000)

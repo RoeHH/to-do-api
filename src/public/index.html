@@ -106,6 +106,28 @@
         <!--Other fields-->
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+            </form>
+            <form action="/delete-task" method="POST">
+        <div class="form-group">
+          <label for="taskid">taskid to delete</label>
+          <input class="form-control" name="taskid" />
+          <input type="hidden" name="archived" value="" />
+        </div>
+
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+            </form>
+            <form action="/delete-list" method="POST">
+        <div class="form-group">
+          <label for="listid">listid to delete</label>
+          <input class="form-control" name="listid" />
+          <input type="hidden" name="archived" value="" />
+        </div>
+
+        <!--Other fields-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
   </body>
 </html>
