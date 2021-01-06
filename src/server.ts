@@ -15,6 +15,11 @@ const app = express();
 app.use(express.static(join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin','https://to-do-list-api-blj.herokuapp.com/'); // update to match the domain you will make the request from
+  res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 app.get('/lists', async (req, res) => {
   const queryMode = req.query.mode;
@@ -28,58 +33,58 @@ app.get('/lists', async (req, res) => {
   res.status(200).json(customers);
 });
 
-app.post('/new-list', async (req, res) => {
+app.post('/new-list', async (req, res, next) => {
   const list = req.body;
   console.log(list);
   await controller.newList(list.listName);
-  res.status(200).json({success: true})
+  res.status(200).json({ success: true });
 });
 
-app.post('/new-task', async (req, res) => {
+app.post('/new-task', async (req, res, next) => {
   const task = req.body;
   console.log(task);
   await controller.insertTodo(task.listid, task.taskContent);
-  res.status(200).json({success: true})
+  res.status(200).json({ success: true });
 });
 
-app.post('/update-task', async (req, res) => {
+app.post('/update-task', async (req, res, next) => {
   const taskid = req.body.taskid;
   const done = Boolean(req.body.done);
   await controller.updateTask(taskid, done);
-  res.status(200).json({success: true})
+  res.status(200).json({ success: true });
 });
 
-app.post('/update-list', async (req, res) => {
+app.post('/update-list', async (req, res, next) => {
   const listid = req.body.listid;
   console.log(listid);
   const archived = Boolean(req.body.archived);
   console.log(req.body.archived);
   await controller.updateList(listid, archived);
-  res.status(200).json({success: true})
+  res.status(200).json({ success: true });
 });
 
-app.post('/new-list-task', async (req, res) => {
+app.post('/new-list-task', async (req, res, next) => {
   const body = req.body;
   console.log(body.taskContent);
   await controller.newListTask(body.listname, body.taskContent);
   res.status(200).json({ success: true });
 });
 
-app.post('/new-task', async (req, res) => {
+app.post('/new-task', async (req, res, next) => {
   const body = req.body;
   console.log(body.listid);
   await controller.insertTodo(body.listid, body.taskContent);
   res.status(200).json({ success: true });
 });
 
-app.post('/delete-list', async (req, res) => {
+app.post('/delete-list', async (req, res, next) => {
   const body = req.body;
   console.log(body.listid);
   await controller.deleteList(body.listid);
   res.status(200).json({ success: true });
 });
 
-app.post('/delete-task', async (req, res) => {
+app.post('/delete-task', async (req, res, next) => {
   const body = req.body;
   console.log(body.taskid);
   await controller.deleteTask(body.taskid);
