@@ -23,12 +23,7 @@ app.use(function (req, res, next) {
 
 app.get('/lists', async (req, res) => {
   const queryMode = req.query.mode;
-  const listMode =
-    queryMode === 'active'
-      ? ListMode.active
-      : queryMode === 'archived'
-      ? ListMode.archived
-      : ListMode.all;
+  const listMode = queryMode === 'active'  ? ListMode.active  : queryMode === 'archived'  ? ListMode.archived : ListMode.all;
   const customers = await controller.getLists(listMode);
   res.status(200).json(customers);
 });
